@@ -18,7 +18,7 @@
 
   <script>
     // Initalising data layer
-    window.digitalData = window.digitalData || [];
+    window.digitalData = window.digitalData || {};
 
     function categorySelection(){
       let clickedItem = event.target;
@@ -28,15 +28,16 @@
 
       if (listItem) {
         let categoryTitle = listItem.querySelector(".category-title")?.textContent.trim();
-        console.log("Clicked category:", categoryTitle);
 
-        window.digitalData.push({
-          page: {
-            pageName: "Homepage"
-          },
-          event: "Homepage category items click",
-          categoryTitle
-        })
+        window.digitalData = {
+          data: {
+            page: {
+              pageName: "Homepage",
+            },
+            event: "Homepage category items click",
+            categoryTitle
+          }
+        }
       }
     }
 
