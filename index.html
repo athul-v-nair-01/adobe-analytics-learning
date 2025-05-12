@@ -20,6 +20,28 @@
     // Initalising data layer
     window.digitalData = window.digitalData || {};
 
+    function categorySelection(){
+      let clickedItem = event.target;
+
+      // Traverse up to the closest li.category-item
+      let listItem = clickedItem.closest(".category-item");
+
+      if (listItem) {
+        let categoryTitle = listItem.querySelector(".category-title")?.textContent.trim();
+
+        window.digitalData = {
+          data: {
+            page: {
+              pageName: "Homepage",
+            },
+            event: "Homepage category items click",
+            categoryTitle
+          }
+        }
+      }
+    }
+
+
   </script>
 </head>
 
@@ -279,7 +301,7 @@
         <p>Summer Collection New Modern Design</p>
       </div>
 
-      <ul class="category-list">
+      <ul class="category-list" onclick=categorySelection()>
         <li class="category-item">
           <a href="#">
             <img src="img/categories/categories1.png" alt="" class="category-image" />
