@@ -44,7 +44,36 @@
       window.dispatchEvent(new CustomEvent("homepageCategoryClick"));
     }
 
+    function modalClose(){
+      const modal = document.getElementById('modal-dialog');
+      modal.style.display = 'none';
+      // window.digitalData = {
+      //   event: "modalClose"
+      // }
+      // window.dispatchEvent(new CustomEvent("modalClose"));
+    }
 
+    function newsletterSubmit(e){
+      e.preventDefault()
+
+      const emailInput = document.getElementById('newsletter-input').value.trim()
+      if(emailInput == ''){
+        return
+      }
+
+      window.digitalData = {
+        data: {
+            page: {
+              pageName: "Homepage",
+            },
+            emailInput
+          },
+          event: "newsletterSubmit",
+      }
+      window.dispatchEvent(new CustomEvent("newsletterSubmit"));
+
+      modalClose()
+    }
   </script>
 </head>
 
@@ -210,9 +239,9 @@
   <!-- ! modal search end -->
 
   <!-- ! modal dialog start -->
-  <div class="modal-dialog">
+  <div class="modal-dialog" id="modal-dialog">
     <div class="modal-content">
-      <div class="modal-close">
+      <div class="modal-close" onclick=modalClose()>
         <i class="bi bi-x"></i>
       </div>
       <div class="modal-image">
@@ -226,8 +255,8 @@
           <p class="popup-text">
             Sign up to our newsletter and get exclusive deals you won find any where else straight to your inbox!
           </p>
-          <form class="popup-form">
-            <input type="text" placeholder="Enter Email Address Here">
+          <form class="popup-form" onsubmit=newsletterSubmit(e)>
+            <input type="text" placeholder="Enter Email Address Here" id="newsletter-input">
             <button class="btn btn-primary">SUBSCRIBE</button>
             <label>
               <input type="checkbox">
