@@ -94,6 +94,7 @@
           },
           event: "newsletterSubmit",
       }
+      window.dispatchEvent(new CustomEvent("newsletterSubmit"));
     }
 
     function manualModalClose(){
