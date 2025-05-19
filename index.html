@@ -23,6 +23,7 @@
     // event listeners
     document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('newsletter-form').addEventListener('submit', newsletterSubmit);
+      document.getElementById('footer-newsletter-form').addEventListener('submit', footerNewsLetterSubmit);
     })
 
     function categorySelection(){
@@ -52,19 +53,9 @@
     function modalClose(){
       const modal = document.getElementById('modal-dialog');
       modal.style.display = 'none';
-      // window.digitalData = {
-      //   event: "modalClose"
-      // }
-      // window.dispatchEvent(new CustomEvent("modalClose"));
     }
 
-    function newsletterSubmit(e){
-      e.preventDefault()
-      const emailInput = document.getElementById('newsletter-input').value.trim()
-      if(emailInput == ''){
-        return
-      }
-
+    function dispatchNewsLetterEvent(emailInput){
       window.digitalData = {
         data: {
             page: {
@@ -75,8 +66,33 @@
           event: "newsletterSubmit",
       }
       window.dispatchEvent(new CustomEvent("newsletterSubmit"));
+    }
 
+    function newsletterSubmit(e){
+      e.preventDefault()
+      const emailInput = document.getElementById('newsletter-input').value.trim()
+      if(emailInput == ''){
+        return
+      }
+      dispatchNewsLetterEvent(emailInput)
       modalClose()
+    }
+
+    function footerNewsLetterSubmit(e){
+      e.preventDefault()
+      const emailInput = document.getElementById('footer-newsletter-input').value.trim()
+      if(emailInput == ''){
+        return
+      }
+      dispatchNewsLetterEvent(emailInput)
+      modalClose()
+    }
+
+    function manualModalClose(){
+      window.digitalData = {
+        event: "modalClose"
+      }
+      window.dispatchEvent(new CustomEvent("modalClose"));
     }
   </script>
 </head>
@@ -245,7 +261,7 @@
   <!-- ! modal dialog start -->
   <div class="modal-dialog" id="modal-dialog">
     <div class="modal-content">
-      <div class="modal-close">
+      <div class="modal-close" onclick=manualModalClose()>
         <i class="bi bi-x"></i>
       </div>
       <div class="modal-image">
@@ -281,7 +297,7 @@
           <img src="img/slider/slider1.jpg" class="img-fluid" alt="" />
         </div>
         <div class="container">
-          <p class="slider-title">SUMMER 2022</p>
+          <p class="slider-title">SUMMER 2025</p>
           <h2 class="slider-heading">Save up to 70%</h2>
           <a href="#" class="btn btn-lg btn-primary">Explore Now</a>
         </div>
@@ -291,8 +307,8 @@
           <img src="img/slider/slider2.jpg" class="img-fluid" alt="" />
         </div>
         <div class="container">
-          <p class="slider-title">SUMMER 2022</p>
-          <h2 class="slider-heading">Save up to 70%</h2>
+          <p class="slider-title">New Spring Collection</p>
+          <h2 class="slider-heading">Get your hands on our new spring collection</h2>
           <a href="#" class="btn btn-lg btn-primary">Explore Now</a>
         </div>
       </div>
@@ -301,9 +317,9 @@
           <img src="img/slider/slider3.jpg" class="img-fluid" alt="" />
         </div>
         <div class="container">
-          <p class="slider-title">SUMMER 2022</p>
-          <h2 class="slider-heading">Save up to 70%</h2>
-          <a href="#" class="btn btn-lg btn-primary">Explore Now</a>
+          <p class="slider-title">Clearence Sale/p>
+          <h2 class="slider-heading">Save up to 90%</h2>
+          <a href="#" class="btn btn-lg btn-primary">Shop Now</a>
         </div>
       </div>
       <div class="slider-buttons">
@@ -471,12 +487,12 @@
         </div>
         <div class="campaign-item">
           <h3 class="campaign-title">
-            Fashion Month <br />
-            Ready in Capital <br />
-            Shop
+            Street Style <br />
+            Urban Edge <br />
+            Bold Looks
           </h3>
           <p class="campaing-desc">
-            Lorem ipsum dolor sit amet consectetur adipiscing elit dolor
+            Redefine your city style with bold pieces inspired by urban culture and modern art.
           </p>
           <a href="#" class="btn btn-primary">
             View All
@@ -487,12 +503,12 @@
       <div class="campaigns-wrapper">
         <div class="campaign-item">
           <h3 class="campaign-title">
-            Fashion Month <br />
-            Ready in Capital <br />
-            Shop
+            Spring Essentials <br />
+            Fresh Styles <br />
+            Just In
           </h3>
           <p class="campaing-desc">
-            Lorem ipsum dolor sit amet consectetur adipiscing elit dolor
+            Discover the latest trends in spring fashion with vibrant colors and lightweight fabrics.
           </p>
           <a href="#" class="btn btn-primary">
             View All
@@ -501,12 +517,12 @@
         </div>
         <div class="campaign-item">
           <h3 class="campaign-title">
-            Fashion Month <br />
-            Ready in Capital <br />
-            Shop
+            Summer Vibes <br />
+            Heat-Ready <br />
+            Wardrobe Picks
           </h3>
           <p class="campaing-desc">
-            Lorem ipsum dolor sit amet consectetur adipiscing elit dolor
+            Stay cool and chic with our curated collection perfect for the summer sun.
           </p>
           <a href="#" class="btn btn-primary">
             View All
@@ -609,7 +625,7 @@
               <span>0 Comments</span>
             </div>
             <div class="blog-info-center">
-              <a href="blog.html"> Aliquam hendrerit mi metus </a>
+              <a href="blog.html"> Exploring the Bold Colors of Summer Fashion </a>
             </div>
             <div class="blog-info-bottom">
               <a href="blog.html">Read More</a>
@@ -627,7 +643,7 @@
               <span>0 Comments</span>
             </div>
             <div class="blog-info-center">
-              <a href="blog.html"> Aliquam hendrerit mi metus </a>
+              <a href="blog.html"> Top Trends for Summer Accessories </a>
             </div>
             <div class="blog-info-bottom">
               <a href="blog.html">Read More</a>
@@ -645,7 +661,7 @@
               <span>0 Comments</span>
             </div>
             <div class="blog-info-center">
-              <a href="blog.html"> Aliquam hendrerit mi metus </a>
+              <a href="blog.html"> Sustainable Fabrics: The Future of Fashion </a>
             </div>
             <div class="blog-info-bottom">
               <a href="blog.html">Read More</a>
@@ -766,8 +782,8 @@
                 </p>
               </div>
               <div class="footer-subscribe-bottom">
-                <form>
-                  <input type="text" placeholder="enter your email addres" />
+                <form id="footer-newsletter-form">
+                  <input type="text" placeholder="enter your email address" id="footer-newsletter-input"/>
                   <button class="btn">Subscribe</button>
                 </form>
                 <p class="privacy-text">
