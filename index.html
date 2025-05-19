@@ -55,26 +55,25 @@
       modal.style.display = 'none';
     }
 
-    function dispatchNewsLetterEvent(emailInput){
-      window.digitalData = {
-        data: {
-            page: {
-              pageName: "Homepage",
-            },
-            emailInput
-          },
-          event: "newsletterSubmit",
-      }
-      window.dispatchEvent(new CustomEvent("newsletterSubmit"));
-    }
-
     function newsletterSubmit(e){
       e.preventDefault()
       const emailInput = document.getElementById('newsletter-input').value.trim()
       if(emailInput == ''){
         return
       }
-      dispatchNewsLetterEvent(emailInput)
+      
+      window.digitalData = {
+        data: {
+            page: {
+              pageName: "Homepage",
+              subSection: "Newsletter"
+            },
+            emailInput
+          },
+          event: "newsletterSubmit",
+      }
+      window.dispatchEvent(new CustomEvent("newsletterSubmit"));
+
       modalClose()
     }
 
@@ -84,8 +83,17 @@
       if(emailInput == ''){
         return
       }
-      dispatchNewsLetterEvent(emailInput)
-      modalClose()
+      
+      window.digitalData = {
+        data: {
+            page: {
+              pageName: "Homepage",
+              subSection: "Footer"
+            },
+            emailInput
+          },
+          event: "newsletterSubmit",
+      }
     }
 
     function manualModalClose(){
