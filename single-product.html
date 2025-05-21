@@ -69,6 +69,7 @@
         }
 
         function addToCart() {
+            console.log("called")
             const productTitle = document.querySelector('.product-title').textContent
             const oldProductPrice = document.querySelector('.old-price').textContent
             const newProductPrice = document.querySelector('.new-price').textContent
@@ -112,9 +113,9 @@
                 },
                 event: "addToCartClick"
             }
-        }
 
-        window.dispatchEvent(new CustomEvent("addToCartClick"));
+            window.dispatchEvent(new CustomEvent("addToCartClick"));
+        }
     </script>
 
 </head>
