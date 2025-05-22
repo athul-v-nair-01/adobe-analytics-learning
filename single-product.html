@@ -20,14 +20,50 @@
         // Initalising data layer
         window.digitalData = window.digitalData || {};
 
+        // global variables
+        let productTitle, oldProductPrice, newProductPrice, productDescription;
+        let productSku, categories, tags;
+        let selectedColor, selectedSize, quantity;
+
         document.addEventListener('DOMContentLoaded', function () {
             // event listeners
             document.getElementById('add-to-cart').addEventListener("click", addToCart)
 
             // functions
+            dataOnLoad()
             colourCheckboxSelection()
             sizeSelection()
         })
+
+        function dataOnLoad() {
+            productTitle = document.querySelector('.product-title').textContent
+            oldProductPrice = document.querySelector('.old-price').textContent
+            newProductPrice = document.querySelector('.new-price').textContent
+            productDescription = document.querySelector('.product-description').textContent
+
+            productSku = document.querySelector('.product-sku a').textContent;
+            categories = document.querySelector('.product-categories a').textContent;
+            tags = document.querySelector('.product-tags a').textContent;
+
+            window.digitalData = {
+                data: {
+                    page: {
+                        pageName: "Product Page",
+                        subSection: "Page Load"
+                    },
+                    product: {
+                        productSku,
+                        productTitle,
+                        productDescription,
+                        oldProductPrice,
+                        newProductPrice,
+                        categories,
+                        tags
+                    }
+                },
+                event: "productPageLoad"
+            }
+        }
 
         function colourCheckboxSelection() {
             const colorLabels = document.querySelectorAll('.color-wrapper label');
@@ -69,29 +105,6 @@
         }
 
         function addToCart() {
-            console.log("called")
-            const productTitle = document.querySelector('.product-title').textContent
-            const oldProductPrice = document.querySelector('.old-price').textContent
-            const newProductPrice = document.querySelector('.new-price').textContent
-            const productDescription = document.querySelector('.product-description').textContent
-
-            const productSku = document.querySelector('.product-sku a').textContent;
-            const categories = document.querySelector('.product-categories a').textContent;
-            const tags = document.querySelector('.product-tags a').textContent;
-            
-            // Get selected color
-            const activeColorWrapper = document.querySelector('.color-wrapper.active');
-            const selectedColor = activeColorWrapper 
-                ? activeColorWrapper.querySelector('label').className.split('-')[0]
-                : null;
-
-            // Get selected size
-            const selectedSizeSpan = document.querySelector('.values-list span.selected');
-            const selectedSize = selectedSizeSpan ? selectedSizeSpan.textContent.trim() : null;
-
-            const quantityInput = document.querySelector('#quantity');
-            const quantity = quantityInput.value ?? null
-
             window.digitalData = {
                 data: {
                     page: {
