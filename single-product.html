@@ -63,6 +63,8 @@
                 },
                 event: "productPageLoad"
             }
+
+            window.dispatchEvent(new CustomEvent("productPageLoad"))
         }
 
         function colourCheckboxSelection() {
