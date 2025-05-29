@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Final Confirmation</title>
+    <!-- Adobe Tracking Script -->
+    <script src="https://assets.adobedtm.com/8459819b208c/544aaa788b59/launch-40a7a1820485-development.min.js" async></script>
+    <script>
+        // data layer
+        window.digitalData = window.digitalData || {};
+    </script>
+</head>
+<body>
+    <button id="success">Success</button>
+    <button id="fail">Failure</button>
+
+    <script>
+        document.getElementById("success").addEventListener("click", function () {
+            const cartData = JSON.parse(localStorage.getItem("cart"));
+            if (cartData && cartData.length > 0) {
+                const orderId = 'ORDER' + Date.now();
+                const total = cartData.reduce((sum, item) => sum + item.price.newPrice * item.quantity, 0);
+
+                // Create products string for Adobe Analytics
+                const products = cartData.map(item => {
+                    return `;${item.name};${item.quantity};${item.price.newPrice}`;
+                }).join(',');
+
+                const productId = cartData.map(item => {
+                    return item.id
+                })
+                const productName = cartData.map(item => {
+                    return item.name
+                })
+
+                // setting up data layer
+                window.digitalData = {
+                    page: {
+                        pageName: "Choice page"
+                    },
+                    data: {
+                        orderId,
+                        products,
+                        orderValue: total,
+                        productId,
+                        productName,
+                        status: "Success"
+                    },
+                    events: "orderSucess"
+                }
+
+                // Clean up
+                // localStorage.removeItem("cart");
+
+                alert("Payment Success! Order tracked.");
+                // window.location.href = "index.html"
+            }
+        });
+
+        document.getElementById("fail").addEventListener("click", function () {
+            // localStorage.removeItem("cart");
+            alert("Payment Failed! No tracking sent.");
+            // window.location.href = "index.html"
+        });
+    </script>
+</body>
+</html>

@@ -10,8 +10,37 @@
     <link rel="stylesheet" href="css/main.css" />
 
     <!-- Adobe Tracking Script -->
-    <script src="https://assets.adobedtm.com/8459819b208c/544aaa788b59/launch-40a7a1820485-development.min.js" async></script>
+    <script src="https://assets.adobedtm.com/8459819b208c/544aaa788b59/launch-40a7a1820485-development.min.js"
+        async></script>
     <title>E-Commerce | Cart</title>
+
+    <script>
+        // data layer
+        window.digitalData = window.digitalData || {};
+
+        window.digitalData = {
+            page: {
+                pageName: "Cart Page",
+                subSection: "Page Load"
+            },
+            data: {
+                cart: {
+                    products: [] 
+                }
+            },
+            event: "Cart Page Load"
+        };
+
+        // load cart items
+        let cartItems = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []
+        window.digitalData.data.cart.products = cartItems.map(item => ({
+            id: item.id || "",
+            name: item.name || "",
+            price: item.price || 0,
+            discount: item.discount || 0
+        }));
+        console.log(window.digitalData)
+    </script>
 </head>
 
 <body>
@@ -161,7 +190,6 @@
                 <input type="text" placeholder="Search a product" />
                 <button><i class="bi bi-search"></i></button>
             </div>
-            </form>
             <div class="search-result">
                 <div class="search-heading">
                     <h3>RESULT FROM PRODUCT</h3>
@@ -175,7 +203,6 @@
     </div>
     <!-- ! modal search end -->
 
- 
 
     <!-- ! cart start -->
     <section class="cart-page">
@@ -253,7 +280,9 @@
                             </tbody>
                         </table>
                         <div class="checkout">
-                            <button class="btn btn-lg btn-red">Proceed to checkout</button>
+                            <a href="/choice.html" style="text-decoration: none;">
+                                <button class="btn btn-lg btn-red">Proceed to checkout</button>
+                            </a>
                         </div>
                     </div>
                 </div>
