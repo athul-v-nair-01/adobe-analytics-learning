@@ -57,25 +57,25 @@ function removeCartItem() {
             localStorage.setItem("cart", JSON.stringify(cart))
             cartItem.innerHTML = cart.length
             saveCardValues()
+
+            // Setting up data layer
+            window.digitalData = {
+                page: {
+                    pageName: "Cart Page",
+                    subSection: "Cart Table"
+                },
+                data:{
+                    removed:{
+                        id,
+                        itemName,
+                    }
+                },
+                event: "deleteCartItem"
+            }
+            // Dispatch custom event
+            window.dispatchEvent(new CustomEvent("deleteCartItem"));
         });
     });
-
-    // Setting up data layer
-    window.digitalData = {
-        page: {
-            pageName: "Cart Page",
-            subSection: "Cart Table"
-        },
-        data:{
-            removed:{
-                id,
-                itemName,
-            }
-        },
-        event: "deleteCartItem"
-    }
-    // Dispatch custom event
-    window.dispatchEvent(new CustomEvent("deleteCartItem"));
 }
 
 
