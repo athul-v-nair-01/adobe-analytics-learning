@@ -45,37 +45,35 @@ function removeCartItem() {
     const btnDeleteCart = document.querySelectorAll(".delete-cart");
     let cartItem = document.querySelector(".header-cart-count")
 
-    let id = ''
-    let removedItemName = ''
     btnDeleteCart.forEach((button) => {
         button.addEventListener("click", (e) => {
-            id = e.target.dataset.id;
+            const id = e.target.dataset.id;
             let removedItem = cart.find(item => item.id === Number(id));
-            removedItemName = removedItem.name
+            const removedItemName = removedItem.name
             cart = cart.filter((item) => item.id !== Number(id));
             displayCartProduct()
             localStorage.setItem("cart", JSON.stringify(cart))
             cartItem.innerHTML = cart.length
             saveCardValues()
+
+            // Setting up data layer
+            window.digitalData = {
+                page: {
+                    pageName: "Cart Page",
+                    subSection: "Cart Table"
+                },
+                data:{
+                    removed:{
+                        id,
+                        itemName: removedItemName,
+                    }
+                },
+                event: "deleteCartItem"
+            }
+            // Dispatch custom event
+            window.dispatchEvent(new CustomEvent("deleteCartItem"));
         });
     });
-
-    // Setting up data layer
-    window.digitalData = {
-        page: {
-            pageName: "Cart Page",
-            subSection: "Cart Table"
-        },
-        data:{
-            removed:{
-                id,
-                itemName,
-            }
-        },
-        event: "deleteCartItem"
-    }
-    // Dispatch custom event
-    window.dispatchEvent(new CustomEvent("deleteCartItem"));
 }
 
 
