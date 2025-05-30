@@ -56,16 +56,22 @@ function removeCartItem() {
             cartItem.innerHTML = cart.length
             saveCardValues()
 
-            // Setting up data layer
+            // Setting up data layer (accomodating the stucture for previous data elements)
             window.digitalData = {
                 page: {
                     pageName: "Cart Page",
                     subSection: "Cart Table"
                 },
                 data:{
-                    removed:{
-                        id,
-                        itemName: removedItemName,
+                    cart: {
+                        products: [
+                            {
+                                id
+                            }
+                        ]
+                    },
+                    product: {
+                        productTitle: removedItemName
                     }
                 },
                 event: "deleteCartItem"
